@@ -4,6 +4,7 @@ This directory is the engineering notebook for this fork's primary target: **cor
 
 ## Documents
 
+- [Master tracker](./MASTER_TRACKER.md) — live P0/P1/P2 checklist and 30/45/60-FPS milestones.
 - [PS5 emulator landscape](./PS5_EMULATOR_LANDSCAPE_2026-09-06.md) — audited current projects, concrete implementations, Demon's Souls discoveries, and source-quality triage.
 - [Demon's Souls 60-FPS roadmap](./DEMONS_SOULS_60FPS_ROADMAP.md) — ordered correctness/performance plan and measurable 16.67-ms target.
 - [Cross-emulator porting matrix](./PORTING_MATRIX.md) — what to port, reimplement, audit, benchmark, defer, or reject.
