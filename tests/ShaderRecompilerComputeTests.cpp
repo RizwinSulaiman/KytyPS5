@@ -14372,6 +14372,8 @@ TestCase VectorCarryAndBitCountOps() {
            O::S_ENDPGM}};
 }
 
+#include "ShaderGuestLaneTests.h"
+
 TestCase VectorMbcntUsesThreadMask() {
   using O = ShaderOpcode;
 
@@ -21654,6 +21656,7 @@ std::vector<TestCase> MakeCases() {
   AddCase(VectorAlignByteUsesFiveBitByteOffset);
   AddCase(VectorCarryAndBitCountOps);
   AddCase(VectorMbcntUsesThreadMask);
+  for (auto &test : MakeGuestLaneCases()) cases.push_back(std::move(test));
   AddCase(VectorAddcWritesPerLaneCarryOut);
   AddCase(VectorAddcUsesPerLaneCarryIn);
   AddCase(VectorSubCoCiU32CompactAndVop3);
@@ -25974,6 +25977,12 @@ int main(int argc, char **argv) {
   std::setvbuf(stdout, nullptr, _IONBF, 0);
   EnsureConfigInitialized();
   CheckLeastRecentlyUsedCacheOrdering();
+  if (argc == 2 && std::strcmp(argv[1], "--guest-lane-id-only") == 0) {
+    VulkanHarness vulkan;
+    RunCase(&vulkan, VectorMbcntUsesThreadMask());
+    for (const auto &test : MakeGuestLaneCases()) RunCase(&vulkan, test);
+    return 0;
+  }
 #if KYTY_PLATFORM != KYTY_PLATFORM_WINDOWS
   if (argc == 2 && std::strcmp(argv[1], "--shader-fatal-only") == 0) {
     CheckShaderRecompilerFatalContracts();

@@ -279,7 +279,7 @@ void AnalyzeProgramRequirements(IR::Program& program) {
 					break;
 				}
 				case IR::ValueOpcode::LaneId:
-					requirements.subgroup_local_invocation_id = true;
+					requirements.subgroup_local_invocation_id |= program.stage != ShaderType::Compute;
 					break;
 				case IR::ValueOpcode::ImageQueryLod: requirements.compute_derivatives = true; break;
 				case IR::ValueOpcode::ImageGatherRaw:

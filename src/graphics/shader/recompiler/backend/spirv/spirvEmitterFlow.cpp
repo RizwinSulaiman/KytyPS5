@@ -592,7 +592,14 @@ bool EmitValueFlow(ValueEmitContext& ctx, const IR::Inst& inst) {
 			ctx.Define(inst, EmitWqm(ctx, ctx.Arg(inst, 0)));
 			return true;
 		case IR::ValueOpcode::LaneId:
-			ctx.Define(inst, EmitSubgroupLocalInvocationId(state));
+			// Compute waves partition the linear guest workgroup. A native
+			// subgroup may be smaller and repeat its lane IDs within one wave.
+			if (state.stage == ShaderType::Compute) {
+				ctx.Emit(inst, OpBitwiseAnd, IR::Type::U32,
+				         {EmitLocalInvocationIndex(state), ConstantU32(state, state.wave_size - 1u)});
+			} else {
+				ctx.Define(inst, EmitSubgroupLocalInvocationId(state));
+			}
 			return true;
 		case IR::ValueOpcode::Ballot:
 			ctx.Emit(inst, OpGroupNonUniformBallot, IR::Type::U32x4,

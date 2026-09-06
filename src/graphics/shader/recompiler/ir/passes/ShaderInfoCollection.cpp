@@ -235,6 +235,10 @@ void CollectComputeInputs(const ShaderComputeInputInfo* compute, ShaderInfo& inf
 void CollectBuiltinInputs(const Program& program, ShaderInfo& info) {
 	for (const auto* block: program.blocks) {
 		for (const auto& inst: *block) {
+			if (inst.GetOpcode() == ValueOpcode::LaneId && program.stage == ShaderType::Compute) {
+				// LaneId still needs this input when guest thread-ID VGPRs are disabled.
+				AddInput(info, StageInputKind::LocalInvocationIndex, 0, 1, "gl_LocalInvocationIndex");
+			}
 			if (inst.GetOpcode() != ValueOpcode::GetBuiltin) {
 				continue;
 			}
