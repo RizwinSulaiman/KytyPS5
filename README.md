@@ -114,6 +114,8 @@ Important areas of the codebase:
 The renderer targets Vulkan 1.3. Keep shader changes aligned with both the RDNA 2 ISA semantics and
 the Vulkan/SPIR-V validation rules.
 
+This fork's Demon's Souls engineering notebook (active Phase 1 plan, local testing baseline, landscape deltas) lives in [`docs/research`](docs/research/README.md). Source checkpoint 2026-09-07 is `38c5c3f` (donor Senaxx `2db19f7` preserved as author; guest-lane 8/8, full 25/36 same 11 pre-existing failures).
+
 ## Building
 
 ### System requirements

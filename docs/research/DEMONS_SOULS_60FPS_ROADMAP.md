@@ -2,6 +2,8 @@
 
 Research date: 2026-09-06
 
+> Phase 1 update 2026-09-07: Senaxx `2db19f7` guest compute lane identity is committed as `38c5c3f` (donor preserved as author; OUR: guest-lane 8/8, full 25/36 same 11 pre-existing failures). Correctness before Almo performance; see PHASE1_CORRECTNESS_PLAN.md. Body below is the preserved 09-06 plan.
+
 ## Goal
 
 Run Demon's Souls Remake at a stable 60 FPS on the target PC:

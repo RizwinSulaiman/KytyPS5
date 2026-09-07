@@ -1,6 +1,8 @@
 # Cross-Emulator Porting Matrix
 
-Last updated: 2026-09-06
+Last updated: 2026-09-07 (full sync; source checkpoint `38c5c3f`; 2026-09-06 body preserved below)
+
+> Phase 1 course correction: first port Senaxx 2db19f7 (guest compute lane identity + tests) is committed as `38c5c3f` (donor preserved as author). Almo 609302b is DEFERRED for this pass. Lordix 7c21b71 and fxpw cf88512 are overlap-comparison only for the conditional second commit. See PHASE1_CORRECTNESS_PLAN.md.
 
 Legend:
 
@@ -53,7 +55,27 @@ Legend:
 
 ---
 
-## Immediate work queue
+## Phase 1 status (2026-09-07; supersedes queue order for this pass)
+
+- [x] Senaxx `2db19f7` guest compute lane identity + tests: COMMITTED as `38c5c3f`; guest-lane 8/8, full 25/36 same 11 pre-existing failures, no new failures.
+- [ ] Lordix `7c21b71` / fxpw `cf88512`: overlap comparison only for the conditional second commit.
+- [ ] Almo `609302b` async pipelines: DEFERRED (no performance work this pass).
+- [ ] Broad P0 census/audit queue below: DEFERRED for this pass.
+
+## Sep 7 ecosystem delta (new vs 09-06 snapshot; evidence-labelled)
+
+- Senaxx/KytyPS5 highest-priority DS correctness donor. Sept 6 chain: `2db19f7` lane identity (COMMITTED as `38c5c3f`; OUR: guest-lane 8/8, full 25/36 same 11); `c6b4156` guarded record-backed image tables; `0ebfb0d` counted direct image tables; `390792b` bounded direct-address image tables; `d42de24` reachable sampler phis; `7be1416` candidate-specific image layouts; `89f2f34` depth overlap/layout coherence; `c11721c`/`cd14777`/`6d1f799` mip/slice/layer validation; `cb5b1a4`/`e31274a` formatted buffer stores. Donor claim: DS reaches Outpost Passage with movement; black materials/corruption remain.
+- iStark/PS5PCEM: independent GPL-3.0 Zig emulator, active through Sep 6, Yotei bring-up. Donor-reported Sep 6: resource-resolution ~20m13s -> ~12m06s, median frame ~13.614s -> ~9.151s (~0.108 FPS); output dark/incorrect, NOT playable. Architecture/reference only until license checked.
+- sharpemu active; PR #863 adds VSadU32, SMulHiI32, SAbsdiffI32 with synthetic tests (donor claim). Port only if our DS shader corpus hits them.
+- Force67/prosperity: AGC/PM4 conceptual reference. Sep 1 corrected packet reading (e.g. 0x93 wait-on-address) + dropped-packet census ideas. Reference only.
+- Coder787-source/KytyPlus active through Sep 5: stability/QOL/package/pipeline-cache ideas, not primary DS renderer path.
+- Stepz97/ps5emu: Windows/native + Win64 fiber ABI work ~Jul 30, behind Sep 4-6 activity.
+- Union-Crax/Hyper5: lower priority, last notable Jul 29 in sweep.
+- Komary-related forks quiet by ~Aug 20; carecu-style forks largely July-era.
+- ps5rs: Rust tooling/research crates (PRX/NID/schema/shader), not a gameplay emulator.
+- MagnusPS5 late-Aug public release: shallow/watch-only.
+
+## Immediate work queue (2026-09-06, preserved)
 
 ### P0: prove correctness
 
